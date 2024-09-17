@@ -2,7 +2,11 @@
 
 import { db } from "@/db/db";
 import { eq } from "drizzle-orm";
-import { InsertProfile, profiles, SelectProfile } from "../schema/profile-schema";
+import {
+  InsertProfile,
+  profiles,
+  SelectProfile,
+} from "../schema/profile-schema";
 
 export const createProfile = async (data: InsertProfile) => {
   try {
@@ -17,7 +21,7 @@ export const createProfile = async (data: InsertProfile) => {
 export const getProfileByUserId = async (userId: string) => {
   try {
     const profile = await db.query.profiles.findFirst({
-      where: eq(profiles.userId, userId)
+      where: eq(profiles.userId, userId),
     });
 
     return profile;
@@ -31,22 +35,19 @@ export const getAllProfiles = async (): Promise<SelectProfile[]> => {
   return db.query.profiles.findMany();
 };
 
-export const updateProfile = async (userId: string, data: Partial<InsertProfile>) => {
+export const updateProfile = async (
+  userId: string,
+  data: Partial<InsertProfile>
+) => {
   try {
-    const [updatedProfile] = await db.update(profiles).set(data).where(eq(profiles.userId, userId)).returning();
+    const [updatedProfile] = await db
+      .update(profiles)
+      .set(data)
+      .where(eq(profiles.userId, userId))
+      .returning();
     return updatedProfile;
   } catch (error) {
     console.error("Error updating profile:", error);
-    throw new Error("Failed to update profile");
-  }
-};
-
-export const updateProfileByStripeCustomerId = async (stripeCustomerId: string, data: Partial<InsertProfile>) => {
-  try {
-    const [updatedProfile] = await db.update(profiles).set(data).where(eq(profiles.stripeCustomerId, stripeCustomerId)).returning();
-    return updatedProfile;
-  } catch (error) {
-    console.error("Error updating profile by stripe customer ID:", error);
     throw new Error("Failed to update profile");
   }
 };
