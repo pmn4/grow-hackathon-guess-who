@@ -17,6 +17,7 @@ Your goal is to completely finish whatever the user asks for.
 
 - We use the Next.js 14 app router
 - Try and group components into folders
+- Use D3.js for data visualizations
 
 ## Requirements
 
