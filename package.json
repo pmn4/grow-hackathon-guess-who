@@ -10,6 +10,7 @@
     "db:yolo": "drizzle-kit generate && drizzle-kit migrate",
     "db:generate": "drizzle-kit generate",
     "db:migrate": "drizzle-kit migrate",
+    "db:seed": "ts-node -r tsconfig-paths/register --compiler-options '{\"module\":\"CommonJS\"}' -P ./tsconfig.json db/seed.ts",
     "test:data:create": "ts-node -r tsconfig-paths/register --compiler-options '{\"module\":\"CommonJS\"}' -P ./tsconfig.json scripts/describe-image.ts"
   },
   "dependencies": {

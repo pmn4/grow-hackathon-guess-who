@@ -4,393 +4,394 @@ import { providers } from "./schema";
 async function seed() {
   try {
     // Seed models
+    // await db.delete(providers);
     await db.insert(providers).values([
       {
-        name: "public/provider-images/image-10.jpg",
+        imageUrl: "public/provider-images/image-10.jpg",
         description:
           "The image features a young man with short hair, wearing glasses and a black shirt. He is standing outside on a sunny day, possibly enjoying some fresh air or taking a break from his daily routine. The outdoor setting suggests that the weather might be pleasant enough for spending time outside.",
-        imageUrl: "Alejandro Ramirez",
+        name: "Alejandro Ramirez",
         imageDescription:
           "I am a licensed psychologist with over 10 years of experience helping individuals and families navigate life's challenges. My approach is holistic, combining traditional talk therapy with mindfulness techniques to help clients achieve lasting change. In my free time, I enjoy hiking and practicing yoga.",
       },
       {
-        name: "public/provider-images/image-11.jpg",
+        imageUrl: "public/provider-images/image-11.jpg",
         description:
           "The man is wearing a black shirt with a gray jacket over it. He has short hair and appears to be smiling for the camera. The background of the image features a wall that adds depth to the scene.",
-        imageUrl: "Diego Martinez",
+        name: "Diego Martinez",
         imageDescription:
           "As a cognitive behavioral therapist, I specialize in helping individuals overcome anxiety, depression, and other mental health concerns. My approach is grounded in evidence-based techniques, and I am committed to providing a safe and supportive space for clients to grow and heal. Outside of work, I enjoy playing guitar and exploring the great outdoors.",
       },
       {
-        name: "public/provider-images/image-12.jpg",
+        imageUrl: "public/provider-images/image-12.jpg",
         description:
           "The woman is wearing a white shirt and has her arms crossed. She appears to be smiling for the camera.",
-        imageUrl: "Fatima Ali",
+        name: "Fatima Ali",
         imageDescription:
           "I am a licensed marriage and family therapist with a passion for helping couples and families build stronger connections. My approach is person-centered, and I believe that every individual has the potential to create a fulfilling life. In my free time, I love trying new recipes and practicing hot yoga.",
       },
       {
-        name: "public/provider-images/image-13.jpg",
+        imageUrl: "public/provider-images/image-13.jpg",
         description:
           "The woman is wearing a white shirt and has her hair pulled back into a ponytail. She is smiling at the camera with a gold necklace around her neck. The background features a wallpapered room, giving the impression of a well-decorated space.",
-        imageUrl: "Isabella Fernandez",
+        name: "Isabella Fernandez",
         imageDescription:
           "As a psychiatrist, I specialize in treating mood and anxiety disorders using medication and therapy. My approach is patient-focused, and I believe that the most effective treatment plans are tailored to each individual's unique needs. Outside of work, I enjoy playing soccer and reading science fiction.",
       },
       {
-        name: "public/provider-images/image-14.jpg",
+        imageUrl: "public/provider-images/image-14.jpg",
         description:
           "The man is wearing a blue sweater with white stripes on it. He has a smile on his face as he poses for the camera. The background features a window that allows natural light to enter the room, creating a bright and welcoming atmosphere.",
-        imageUrl: "Ethan Kim",
+        name: "Ethan Kim",
         imageDescription:
           "I am a licensed art therapist, helping clients express themselves and find meaning through creative projects. My approach is client-centered, and I believe that the arts can be a powerful tool for healing and growth. In my free time, I love exploring local art galleries and practicing calligraphy.",
       },
       {
-        name: "public/provider-images/image-16.jpg",
+        imageUrl: "public/provider-images/image-16.jpg",
         description:
           "The woman is wearing a white jacket with buttons on it. She has her hands behind her back and is smiling for the camera. Her hair is pulled into a ponytail, and she appears to be posing confidently in front of a white background.",
-        imageUrl: "Mei Chen",
+        name: "Mei Chen",
         imageDescription:
           "I am a licensed psychologist with expertise in trauma-focused cognitive behavioral therapy. My approach is compassionate and evidence-based, and I believe that every individual has the potential to heal and grow despite life's challenges. Outside of work, I enjoy hiking and practicing mindfulness meditation.",
       },
       {
-        name: "public/provider-images/image-17.jpg",
+        imageUrl: "public/provider-images/image-17.jpg",
         description:
           "The man is sitting on a bench with his legs crossed while wearing a brown jacket. He has a beard and appears to be smiling for the camera. The scene takes place outdoors, as there are stairs visible in the background.",
-        imageUrl: "Hiroshi Tanaka",
+        name: "Hiroshi Tanaka",
         imageDescription:
           "I am a licensed social worker with a passion for helping individuals navigate life transitions and build resilience. My approach is person-centered, and I believe that every individual has the power to create a fulfilling life. In my free time, I love trying new fitness classes and practicing calligraphy.",
       },
       {
-        name: "public/provider-images/image-18.jpg",
+        imageUrl: "public/provider-images/image-18.jpg",
         description:
           "The man is wearing a suit jacket with a button on it. He has short hair and is smiling for the camera.",
-        imageUrl: "Javier Hernandez",
+        name: "Javier Hernandez",
         imageDescription:
           "I am a licensed psychiatrist with expertise in treating ADHD and related conditions using medication and therapy. My approach is patient-focused, and I believe that the most effective treatment plans are tailored to each individual's unique needs. Outside of work, I enjoy playing guitar and practicing tai chi.",
       },
       {
-        name: "public/provider-images/image-19.jpg",
+        imageUrl: "public/provider-images/image-19.jpg",
         description:
           "The woman is sitting on a blue couch with her hands behind her head. She has long hair that is parted to one side, and she appears to be smiling for the camera. The background features a window, giving the scene an outdoor feel.",
-        imageUrl: "Sofia Rossi",
+        name: "Sofia Rossi",
         imageDescription:
           "I am a licensed acupuncturist and herbalist, helping clients achieve balance and wellness through traditional Chinese medicine techniques. My approach is holistic, and I believe that the body has an innate ability to heal itself when given the right tools. In my free time, I love exploring local farmers markets and practicing qigong.",
       },
       {
-        name: "public/provider-images/image-20.jpg",
+        imageUrl: "public/provider-images/image-20.jpg",
         description:
           "The woman is wearing a black and white dress with a black shirt underneath. She has dark hair styled in a bun, and she is smiling for the camera. The background features a wall that appears to be white or grey in color.",
-        imageUrl: "Yasmin Ahmed",
+        name: "Yasmin Ahmed",
         imageDescription:
           "I am a licensed psychologist with expertise in cognitive behavioral therapy for anxiety and depression. My approach is evidence-based and compassionate, and I believe that every individual has the potential to achieve lasting change. Outside of work, I enjoy hiking and practicing yoga.",
       },
       {
-        name: "public/provider-images/image-21.jpg",
+        imageUrl: "public/provider-images/image-21.jpg",
         description:
           "The woman is wearing a red jacket and has her hands crossed while sitting at a table. She appears to be posing for a picture, possibly for a professional or personal purpose. The background of the image is black, which adds an element of contrast to the scene.",
-        imageUrl: "Anika Singh",
+        name: "Anika Singh",
         imageDescription:
           "I am a licensed counselor with a passion for helping individuals and families navigate life's challenges. My approach is person-centered, and I believe that every individual has the potential to create a fulfilling life. In my free time, I love trying new recipes and practicing hot yoga.",
       },
       {
-        name: "public/provider-images/image-22.jpg",
+        imageUrl: "public/provider-images/image-22.jpg",
         description:
           "The man is wearing a blue shirt with white buttons. He has short hair and a beard. The background is white, giving the image a clean and simple look.",
-        imageUrl: "Kwame Johnson",
+        name: "Kwame Johnson",
         imageDescription:
           "I am a licensed psychologist with expertise in trauma-focused cognitive behavioral therapy. My approach is compassionate and evidence-based, and I believe that every individual has the potential to heal and grow despite life's challenges. Outside of work, I enjoy playing soccer and reading science fiction.",
       },
       {
-        name: "public/provider-images/image-27.jpg",
+        imageUrl: "public/provider-images/image-27.jpg",
         description:
           "The man is wearing a suit jacket and tie, with his shirt open. He has a beard and mustache, and he appears to be smiling for the camera. The background features a green wall, possibly indicating an indoor setting or a professional environment.",
-        imageUrl: "Liam O’Connor",
+        name: "Liam O’Connor",
         imageDescription:
           "I am a licensed art therapist, helping clients express themselves and find meaning through creative projects. My approach is client-centered, and I believe that the arts can be a powerful tool for healing and growth. In my free time, I love exploring local art galleries and practicing calligraphy.",
       },
       {
-        name: "public/provider-images/image-28.jpg",
+        imageUrl: "public/provider-images/image-28.jpg",
         description:
           "The man is wearing a blue shirt with white stripes on it. He has a beard and mustache, and his hair is short. The image appears to have been taken indoors, possibly in an office or a room with windows. There are two cars visible in the background, one behind the other.",
-        imageUrl: "Omar El-Sayed",
+        name: "Omar El-Sayed",
         imageDescription:
           "I am a licensed psychologist with expertise in trauma-focused cognitive behavioral therapy. My approach is compassionate and evidence-based, and I believe that every individual has the potential to heal and grow despite life's challenges. Outside of work, I enjoy hiking and practicing mindfulness meditation.",
       },
       {
-        name: "public/provider-images/image-29.jpg",
+        imageUrl: "public/provider-images/image-29.jpg",
         description:
           "The man is wearing a gray jacket with a black shirt underneath it. He has his hands in his pockets and appears to be posing for the camera. The background is white, giving the image a clean and minimalistic look.",
-        imageUrl: "Raj Patel",
+        name: "Raj Patel",
         imageDescription:
           "I am a licensed marriage and family therapist with a passion for helping couples and families build stronger connections. My approach is person-centered, and I believe that every individual has the potential to create a fulfilling life. In my free time, I love trying new recipes and practicing hot yoga.",
       },
       {
-        name: "public/provider-images/image-30.jpg",
+        imageUrl: "public/provider-images/image-30.jpg",
         description:
           "The man is wearing a white shirt with blue stripes. He has his hands in his pockets and is smiling for the camera. The background features a wall that appears to be made of glass or mirrored material, giving an impression of depth to the image.",
-        imageUrl: "Miguel Santos",
+        name: "Miguel Santos",
         imageDescription:
           "I am a licensed psychiatrist with expertise in treating mood and anxiety disorders using medication and therapy. My approach is patient-focused, and I believe that the most effective treatment plans are tailored to each individual's unique needs. Outside of work, I enjoy playing soccer and reading science fiction.",
       },
       {
-        name: "public/provider-images/image-31.jpg",
+        imageUrl: "public/provider-images/image-31.jpg",
         description:
           "The man is wearing a suit jacket with a blue shirt underneath. He has glasses on his face and is posing for a picture. The background features an office environment with multiple TVs mounted on the walls, as well as chairs placed around the room. There are also several people in the background, indicating that this might be a busy workplace or event.",
-        imageUrl: "Benjamin Bailey",
+        name: "Benjamin Bailey",
         imageDescription:
           "I am a licensed acupuncturist and herbalist, helping clients achieve balance and wellness through traditional Chinese medicine techniques. My approach is holistic, and I believe that the body has an innate ability to heal itself when given the right tools. In my free time, I love exploring local farmers markets and practicing qigong.",
       },
       {
-        name: "public/provider-images/image-32.jpg",
+        imageUrl: "public/provider-images/image-32.jpg",
         description:
           "The woman is standing on a sidewalk next to a street with several cars parked along it. She appears to be smiling for the camera while posing for a picture. The scene seems to be set in an urban environment, possibly near a shopping area or a busy street.",
-        imageUrl: "Keiko Nakamura",
+        name: "Keiko Nakamura",
         imageDescription:
           "I am a licensed psychologist with expertise in cognitive behavioral therapy for anxiety and depression. My approach is evidence-based and compassionate, and I believe that every individual has the potential to achieve lasting change. Outside of work, I enjoy hiking and practicing yoga.",
       },
       {
-        name: "public/provider-images/image-33.jpg",
+        imageUrl: "public/provider-images/image-33.jpg",
         description:
           "The woman is standing in a large room with wooden floors and white walls. She is wearing blue jeans and a black shirt. The room features a dining table surrounded by chairs, and there are several books scattered throughout the space. In addition to the furniture, there are multiple potted plants placed around the room, adding a touch of greenery to the environment. A vase can also be seen on one of the tables, further enhancing the room's decoration.",
-        imageUrl: "Leila Hassan",
+        name: "Leila Hassan",
         imageDescription:
           "I am a licensed counselor with a passion for helping individuals and families navigate life's challenges. My approach is person-centered, and I believe that every individual has the potential to create a fulfilling life. In my free time, I love trying new recipes and practicing hot yoga.",
       },
       {
-        name: "public/provider-images/image-34.jpg",
+        imageUrl: "public/provider-images/image-34.jpg",
         description:
           "The woman is wearing a black top with a white collar. She has dark hair and is smiling for the camera. The background appears to be blurry, possibly indicating that she is posing indoors or in a controlled environment.",
-        imageUrl: "Maria Garcia",
+        name: "Maria Garcia",
         imageDescription:
           "I am a licensed psychologist with expertise in trauma-focused cognitive behavioral therapy. My approach is compassionate and evidence-based, and I believe that every individual has the potential to heal and grow despite life's challenges. Outside of work, I enjoy playing soccer and reading science fiction.",
       },
       {
-        name: "public/provider-images/image-36.jpg",
+        imageUrl: "public/provider-images/image-36.jpg",
         description:
           "The woman is wearing a white jacket with blue sleeves. She has long hair that she has styled into a ponytail. Her smile appears genuine as she poses for the camera. The office environment features multiple chairs and desks, along with several TVs mounted on the walls. There are also keyboards placed on some of the desks. The woman seems to be in a professional setting, possibly an office or workspace.",
-        imageUrl: "Aisha Khan",
+        name: "Aisha Khan",
         imageDescription:
           "I am a licensed art therapist, helping clients express themselves and find meaning through creative projects. My approach is client-centered, and I believe that the arts can be a powerful tool for healing and growth. In my free time, I love exploring local art galleries and practicing calligraphy.",
       },
       {
-        name: "public/provider-images/image-37.jpg",
+        imageUrl: "public/provider-images/image-37.jpg",
         description:
           "The woman is wearing a blue shirt and has blonde hair. She appears to be smiling for the camera as she poses for the picture.",
-        imageUrl: "Chloe Murphy",
+        name: "Chloe Murphy",
         imageDescription:
           "I am a licensed psychologist with expertise in trauma-focused cognitive behavioral therapy. My approach is compassionate and evidence-based, and I believe that every individual has the potential to heal and grow despite life's challenges. Outside of work, I enjoy hiking and practicing mindfulness meditation.",
       },
       {
-        name: "public/provider-images/image-38.jpg",
+        imageUrl: "public/provider-images/image-38.jpg",
         description: "The man is wearing a white shirt with a collar.",
-        imageUrl: "Tyler Rogers",
+        name: "Tyler Rogers",
         imageDescription:
           "I am a licensed marriage and family therapist with a passion for helping couples and families build stronger connections. My approach is person-centered, and I believe that every individual has the potential to create a fulfilling life. In my free time, I love trying new recipes and practicing hot yoga.",
       },
       {
-        name: "public/provider-images/image-39.jpg",
+        imageUrl: "public/provider-images/image-39.jpg",
         description:
           "The woman is wearing a green shirt and has long hair. She appears to be smiling for the camera.",
-        imageUrl: "Grace Morgan",
+        name: "Grace Morgan",
         imageDescription:
           "I am a licensed psychiatrist with expertise in treating mood and anxiety disorders using medication and therapy. My approach is patient-focused, and I believe that the most effective treatment plans are tailored to each individual's unique needs. Outside of work, I enjoy playing soccer and reading science fiction.",
       },
       {
-        name: "public/provider-images/image-40.jpg",
+        imageUrl: "public/provider-images/image-40.jpg",
         description:
           "The man is wearing a blue shirt with white stripes and glasses on his head. He has a beard and mustache and appears to be smiling for the camera. The image shows him standing in front of a group of people, possibly at an office or workplace setting. There are several chairs visible around the room, as well as a dining table.",
-        imageUrl: "William Ward",
+        name: "William Ward",
         imageDescription:
           "I am a licensed acupuncturist and herbalist, helping clients achieve balance and wellness through traditional Chinese medicine techniques. My approach is holistic, and I believe that the body has an innate ability to heal itself when given the right tools. In my free time, I love exploring local farmers markets and practicing qigong.",
       },
       {
-        name: "public/provider-images/image-41.jpg",
+        imageUrl: "public/provider-images/image-41.jpg",
         description:
           "The man is wearing a blue suit jacket with a pink pocket square. He has a white shirt underneath his jacket and is smiling for the camera. The man appears to be well-dressed, possibly for a formal event or business meeting.",
-        imageUrl: "Brandon Sanchez",
+        name: "Brandon Sanchez",
         imageDescription:
           "I am a licensed psychologist with expertise in cognitive behavioral therapy for anxiety and depression. My approach is evidence-based and compassionate, and I believe that every individual has the potential to achieve lasting change. Outside of work, I enjoy hiking and practicing yoga.",
       },
       {
-        name: "public/provider-images/image-42.jpg",
+        imageUrl: "public/provider-images/image-42.jpg",
         description:
           "The man is wearing a white shirt with a collar. He has short hair and appears to be smiling for the camera. The background is white, giving the image a clean and professional appearance.",
-        imageUrl: "Christian Watson",
+        name: "Christian Watson",
         imageDescription:
           "I am a licensed counselor with a passion for helping individuals and families navigate life's challenges. My approach is person-centered, and I believe that every individual has the potential to create a fulfilling life. In my free time, I love trying new recipes and practicing hot yoga.",
       },
       {
-        name: "public/provider-images/image-43.jpg",
+        imageUrl: "public/provider-images/image-43.jpg",
         description:
           "The woman is wearing a blue jacket and glasses. She has dark hair and is smiling for the camera.",
-        imageUrl: "Natalie Reed",
+        name: "Natalie Reed",
         imageDescription:
           "I am a licensed psychologist with expertise in trauma-focused cognitive behavioral therapy. My approach is compassionate and evidence-based, and I believe that every individual has the potential to heal and grow despite life's challenges. Outside of work, I enjoy playing soccer and reading science fiction.",
       },
       {
-        name: "public/provider-images/image-44.jpg",
+        imageUrl: "public/provider-images/image-44.jpg",
         description:
           "The woman is sitting on a bench with her legs crossed, wearing glasses and a red shirt. She appears to be smiling for the camera. The background features green plants, creating a pleasant outdoor atmosphere.",
-        imageUrl: "Victoria Morris",
+        name: "Victoria Morris",
         imageDescription:
           "I am a licensed art therapist, helping clients express themselves and find meaning through creative projects. My approach is client-centered, and I believe that the arts can be a powerful tool for healing and growth. In my free time, I love exploring local art galleries and practicing calligraphy.",
       },
       {
-        name: "public/provider-images/image-46.jpg",
+        imageUrl: "public/provider-images/image-46.jpg",
         description:
           "The woman is sitting on a blue couch with her legs crossed. She has long hair that she has styled into a ponytail. She is wearing a black shirt and appears to be smiling for the camera. The room features a window, which allows natural light to enter the space. There are also two chairs in the scene, one located near the woman and another further away from her.",
-        imageUrl: "Zoe Barnes",
+        name: "Zoe Barnes",
         imageDescription:
           "I am a licensed psychologist with expertise in trauma-focused cognitive behavioral therapy. My approach is compassionate and evidence-based, and I believe that every individual has the potential to heal and grow despite life's challenges. Outside of work, I enjoy hiking and practicing mindfulness meditation.",
       },
       {
-        name: "public/provider-images/image-47.jpg",
+        imageUrl: "public/provider-images/image-47.jpg",
         description:
           "The woman is sitting at a table with her laptop computer. She has long black hair that she is holding on top of her head as she smiles for the camera. The room appears to be white, giving it a clean and bright atmosphere. There are two cups placed near the edge of the table, possibly containing drinks or snacks for the woman while she works on her laptop.",
-        imageUrl: "Ella Howard",
+        name: "Ella Howard",
         imageDescription:
           "I am a licensed marriage and family therapist with a passion for helping couples and families build stronger connections. My approach is person-centered, and I believe that every individual has the potential to create a fulfilling life. In my free time, I love trying new recipes and practicing hot yoga.",
       },
       {
-        name: "public/provider-images/image-48.jpg",
+        imageUrl: "public/provider-images/image-48.jpg",
         description:
           "The man is wearing a blue suit jacket with white buttons, a white shirt, and a tie. He has short hair and appears to be smiling for the camera. The background features trees and water, creating a pleasant outdoor setting.",
-        imageUrl: "Daniel Campbell",
+        name: "Daniel Campbell",
         imageDescription:
           "I am a licensed psychiatrist with expertise in treating mood and anxiety disorders using medication and therapy. My approach is patient-focused, and I believe that the most effective treatment plans are tailored to each individual's unique needs. Outside of work, I enjoy playing soccer and reading science fiction.",
       },
       {
-        name: "public/provider-images/image-49.jpg",
+        imageUrl: "public/provider-images/image-49.jpg",
         description:
           "The woman is wearing a red suit with a white shirt underneath. She has long hair that is styled nicely. The background of the image is black, giving it an elegant appearance.",
-        imageUrl: "Hannah Parker",
+        name: "Hannah Parker",
         imageDescription:
           "I am a licensed acupuncturist and herbalist, helping clients achieve balance and wellness through traditional Chinese medicine techniques. My approach is holistic, and I believe that the body has an innate ability to heal itself when given the right tools. In my free time, I love exploring local farmers markets and practicing qigong.",
       },
       {
-        name: "public/provider-images/image-5.jpg",
+        imageUrl: "public/provider-images/image-5.jpg",
         description:
           "The woman is sitting on a white chair with her hands folded together. She appears to be wearing a black jacket and has blonde hair. The room she is in features a kitchen area with an oven, sink, and dining table. There are also several chairs placed around the room, as well as a vase on display.",
-        imageUrl: "Isabella Foster",
+        name: "Isabella Foster",
         imageDescription:
           "I am a licensed psychologist with expertise in cognitive behavioral therapy for anxiety and depression. My approach is evidence-based and compassionate, and I believe that every individual has the potential to achieve lasting change. Outside of work, I enjoy hiking and practicing yoga.",
       },
       {
-        name: "public/provider-images/image-54.jpg",
+        imageUrl: "public/provider-images/image-54.jpg",
         description: "The man is wearing a blue shirt with white buttons.",
-        imageUrl: "Jacob Cox",
+        name: "Jacob Cox",
         imageDescription:
           "I am a licensed counselor with a passion for helping individuals and families navigate life's challenges. My approach is person-centered, and I believe that every individual has the potential to create a fulfilling life. In my free time, I love trying new recipes and practicing hot yoga.",
       },
       {
-        name: "public/provider-images/image-55.jpg",
+        imageUrl: "public/provider-images/image-55.jpg",
         description:
           "The man is wearing a blue shirt with gold chains around his neck. He has a beard and mustache, and he appears to be smiling for the camera. The background of the image is dark grey, creating a contrasting effect between the subject and the environment.",
-        imageUrl: "Nathaniel Griffin",
+        name: "Nathaniel Griffin",
         imageDescription:
           "I am a licensed psychologist with expertise in trauma-focused cognitive behavioral therapy. My approach is compassionate and evidence-based, and I believe that every individual has the potential to heal and grow despite life's challenges. Outside of work, I enjoy playing soccer and reading science fiction.",
       },
       {
-        name: "public/provider-images/image-56.jpg",
+        imageUrl: "public/provider-images/image-56.jpg",
         description:
           "The woman is wearing a gray shirt with a black necktie. She has short hair and is smiling for the camera. The image appears to be professionally taken, as she is posing confidently in an office setting. There are multiple chairs visible around her, suggesting that this could be a conference room or a waiting area.",
-        imageUrl: "Olivia Edwards",
+        name: "Olivia Edwards",
         imageDescription:
           "I am a licensed art therapist, helping clients express themselves and find meaning through creative projects. My approach is client-centered, and I believe that the arts can be a powerful tool for healing and growth. In my free time, I love exploring local art galleries and practicing calligraphy.",
       },
       {
-        name: "public/provider-images/image-57.jpg",
+        imageUrl: "public/provider-images/image-57.jpg",
         description:
           "The woman is wearing a yellow shirt and has long hair. She is sitting down with her hands on her knees and smiling at the camera. The background appears to be white, giving the image a clean and simple look.",
-        imageUrl: "Rachel Phillips",
+        name: "Rachel Phillips",
         imageDescription:
           "I am a licensed psychologist with expertise in trauma-focused cognitive behavioral therapy. My approach is compassionate and evidence-based, and I believe that every individual has the potential to heal and grow despite life's challenges. Outside of work, I enjoy hiking and practicing mindfulness meditation.",
       },
       {
-        name: "public/provider-images/image-58.jpg",
+        imageUrl: "public/provider-images/image-58.jpg",
         description:
           "The woman is wearing a black suit with a white shirt underneath. She has long hair that she has styled to look neat and professional. Her smile appears genuine as she poses for the picture, possibly in front of a door or a window. The overall appearance suggests that she might be working in an office environment or attending a formal event.",
-        imageUrl: "Samantha James",
+        name: "Samantha James",
         imageDescription:
           "I am a licensed marriage and family therapist with a passion for helping couples and families build stronger connections. My approach is person-centered, and I believe that every individual has the potential to create a fulfilling life. In my free time, I love trying new recipes and practicing hot yoga.",
       },
       {
-        name: "public/provider-images/image-59.jpg",
+        imageUrl: "public/provider-images/image-59.jpg",
         description:
           "The woman is wearing a black shirt with a white button on it. She has long hair that reaches down to her waist. Her outfit appears to be casual and comfortable, as she poses for the picture. The setting seems to be indoors, possibly in a room or studio.",
-        imageUrl: "Zoe Jenkins",
+        name: "Zoe Jenkins",
         imageDescription:
           "I am a licensed psychiatrist with expertise in treating mood and anxiety disorders using medication and therapy. My approach is patient-focused, and I believe that the most effective treatment plans are tailored to each individual's unique needs. Outside of work, I enjoy playing soccer and reading science fiction.",
       },
       {
-        name: "public/provider-images/image-6.jpg",
+        imageUrl: "public/provider-images/image-6.jpg",
         description:
           "The man is wearing a suit and tie with a red and black patterned necktie. He has a smile on his face as he poses for the picture. The background features a brick wall, giving the image an urban feel.",
-        imageUrl: "Brian Flores",
+        name: "Brian Flores",
         imageDescription:
           "I am a licensed acupuncturist and herbalist, helping clients achieve balance and wellness through traditional Chinese medicine techniques. My approach is holistic, and I believe that the body has an innate ability to heal itself when given the right tools. In my free time, I love exploring local farmers markets and practicing qigong.",
       },
       {
-        name: "public/provider-images/image-60.jpg",
+        imageUrl: "public/provider-images/image-60.jpg",
         description:
           "The man is wearing a suit jacket and tie, with his hands crossed. He appears to be well-dressed for a formal event or professional setting. The image is black and white, giving it an old-fashioned feel.",
-        imageUrl: "Christopher Martinez",
+        name: "Christopher Martinez",
         imageDescription:
           "I am a licensed psychologist with expertise in cognitive behavioral therapy for anxiety and depression. My approach is evidence-based and compassionate, and I believe that every individual has the potential to achieve lasting change. Outside of work, I enjoy hiking and practicing yoga.",
       },
       {
-        name: "public/provider-images/image-61.jpg",
+        imageUrl: "public/provider-images/image-61.jpg",
         description:
           "The woman is wearing a red shirt with glasses on her head. She has a smile on her face as she poses for the camera.",
-        imageUrl: "Emily Johnson",
+        name: "Emily Johnson",
         imageDescription:
           "I am a licensed counselor with a passion for helping individuals and families navigate life's challenges. My approach is person-centered, and I believe that every individual has the potential to create a fulfilling life. In my free time, I love trying new recipes and practicing hot yoga.",
       },
       {
-        name: "public/provider-images/image-63.jpg",
+        imageUrl: "public/provider-images/image-63.jpg",
         description:
           "The man is wearing a suit jacket with a purple shirt underneath. He has a beard and is sitting on a chair. The background appears to be black, giving the image an artistic feel.",
-        imageUrl: "David Wilson",
+        name: "David Wilson",
         imageDescription:
           "I am a licensed psychologist with expertise in trauma-focused cognitive behavioral therapy. My approach is compassionate and evidence-based, and I believe that every individual has the potential to heal and grow despite life's challenges. Outside of work, I enjoy playing soccer and reading science fiction.",
       },
       {
-        name: "public/provider-images/image-64.jpg",
+        imageUrl: "public/provider-images/image-64.jpg",
         description:
           "The woman is standing on a rooftop with a city skyline in the background. She is wearing a white jacket and has her hands at her sides. The image appears to be black and white, giving it an artistic feel.",
-        imageUrl: "Laura Jackson",
+        name: "Laura Jackson",
         imageDescription:
           "I am a licensed art therapist, helping clients express themselves and find meaning through creative projects. My approach is client-centered, and I believe that the arts can be a powerful tool for healing and growth. In my free time, I love exploring local art galleries and practicing calligraphy.",
       },
       {
-        name: "public/provider-images/image-65.jpg",
+        imageUrl: "public/provider-images/image-65.jpg",
         description:
           "The man is wearing a blue shirt and has a smile on his face. He appears to be enjoying himself as he poses for the picture. The image also features some potted plants nearby, adding a touch of greenery to the scene.",
-        imageUrl: "James Taylor",
+        name: "James Taylor",
         imageDescription:
           "I am a licensed psychologist with expertise in trauma-focused cognitive behavioral therapy. My approach is compassionate and evidence-based, and I believe that every individual has the potential to heal and grow despite life's challenges. Outside of work, I enjoy hiking and practicing mindfulness meditation.",
       },
       {
-        name: "public/provider-images/image-7.jpg",
+        imageUrl: "public/provider-images/image-7.jpg",
         description: "The man is wearing a white shirt with pink stripes.",
-        imageUrl: "Kevin Hughes",
+        name: "Kevin Hughes",
         imageDescription:
           "I am a licensed marriage and family therapist with a passion for helping couples and families build stronger connections. My approach is person-centered, and I believe that every individual has the potential to create a fulfilling life. In my free time, I love trying new recipes and practicing hot yoga.",
       },
       {
-        name: "public/provider-images/image-8.jpg",
+        imageUrl: "public/provider-images/image-8.jpg",
         description:
           "The man is wearing a blue shirt and has a beard. He appears to be smiling for the camera while standing in an office environment. The room contains multiple chairs and tables, suggesting that it might be a workspace or meeting area.",
-        imageUrl: "Nicholas Bell",
+        name: "Nicholas Bell",
         imageDescription:
           "I am a licensed psychiatrist with expertise in treating mood and anxiety disorders using medication and therapy. My approach is patient-focused, and I believe that the most effective treatment plans are tailored to each individual's unique needs. Outside of work, I enjoy playing soccer and reading science fiction.",
       },
       {
-        name: "public/provider-images/image-9.jpg",
+        imageUrl: "public/provider-images/image-9.jpg",
         description:
           "The woman is wearing a blue shirt and has blonde hair. She is smiling at the camera with her hands on her hips. The background features a couch and a chair.",
-        imageUrl: "Sarah Miller",
+        name: "Sarah Miller",
         imageDescription:
           'I am a licensed acupuncturist and herbalist, helping clients achieve balance and wellness through traditional Chinese medicine techniques. My approach is holistic, and I believe that the body has an innate ability to heal itself when given the right tools. In my free time, I love exploring local farmers markets and practicing qigong."}',
       },

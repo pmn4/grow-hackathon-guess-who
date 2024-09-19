@@ -1,7 +1,7 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
-import { SignedIn, SignedOut, SignInButton, UserButton } from "@clerk/nextjs";
+// import { SignedIn, SignedOut, SignInButton, UserButton } from "@clerk/nextjs";
 import { CheckSquare, Menu, X } from "lucide-react";
 import Link from "next/link";
 import { useState } from "react";
@@ -13,36 +13,21 @@ export default function Header() {
     setIsMenuOpen(!isMenuOpen);
   };
 
+  return null;
+
   return (
     <header className="bg-primary text-primary-foreground shadow-md">
       <div className="container mx-auto px-4 py-4 flex items-center justify-between">
         <div className="flex items-center space-x-2">
           <CheckSquare className="h-6 w-6" />
-          <h1 className="text-xl font-bold">Todo App</h1>
+          <h1 className="text-xl font-bold">Perfect Provider</h1>
         </div>
         <nav className="hidden md:flex space-x-4">
-          <Link
-            href="/"
-            className="hover:underline"
-          >
+          <Link href="/" className="hover:underline">
             Home
           </Link>
-          <SignedIn>
-            <Link
-              href="/todo"
-              className="hover:underline"
-            >
-              Todos
-            </Link>
-          </SignedIn>
         </nav>
         <div className="flex items-center space-x-4">
-          <SignedOut>
-            <SignInButton />
-          </SignedOut>
-          <SignedIn>
-            <UserButton />
-          </SignedIn>
           <div className="md:hidden">
             <Button
               variant="ghost"
@@ -50,7 +35,11 @@ export default function Header() {
               onClick={toggleMenu}
               aria-label="Toggle menu"
             >
-              {isMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
+              {isMenuOpen ? (
+                <X className="h-6 w-6" />
+              ) : (
+                <Menu className="h-6 w-6" />
+              )}
             </Button>
           </div>
         </div>
@@ -67,17 +56,6 @@ export default function Header() {
                 Home
               </Link>
             </li>
-            <SignedIn>
-              <li>
-                <Link
-                  href="/todo"
-                  className="block hover:underline"
-                  onClick={toggleMenu}
-                >
-                  Todos
-                </Link>
-              </li>
-            </SignedIn>
           </ul>
         </nav>
       )}

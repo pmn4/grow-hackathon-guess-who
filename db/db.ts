@@ -1,11 +1,10 @@
 import { drizzle } from "drizzle-orm/postgres-js";
 import postgres from "postgres";
-import { profiles, providers, todos } from "./schema";
+import { profiles, providers } from "./schema";
 
 const schema = {
   profiles,
   providers,
-  todos,
 };
 
 const client = postgres({
