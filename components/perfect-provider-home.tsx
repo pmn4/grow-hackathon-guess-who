@@ -1,8 +1,13 @@
 "use client";
 
-import React, { useCallback, useRef, useState, useEffect } from "react";
+import React, {
+  useCallback,
+  useRef,
+  useState,
+  useEffect,
+  useMemo,
+} from "react";
 import { Input } from "@/components/ui/input";
-import { Button } from "@/components/ui/button";
 import { SelectProvider } from "@/db/schema";
 import { ProviderCard } from "./ProviderCard";
 import { filterProviders } from "@/actions/provider-actions";
@@ -10,6 +15,13 @@ import { motion, AnimatePresence } from "framer-motion";
 import { useGridScale } from "@/hooks/use-grid-scale";
 import Confetti from "react-confetti";
 import { useWindowSize } from "react-use";
+import { X } from "lucide-react"; // Import the X icon from lucide-react
+
+// Add this interface at the top of the file
+interface CriteriaHistoryItem {
+  criteria: string;
+  eliminatedProviderIds: string[];
+}
 
 export default function PerfectProviderHome({
   providers,
@@ -29,6 +41,9 @@ export default function PerfectProviderHome({
   const [expandedProvider, setExpandedProvider] =
     useState<SelectProvider | null>(null);
   const [isCancelled, setIsCancelled] = useState(false);
+  const [criteriaHistory, setCriteriaHistory] = useState<CriteriaHistoryItem[]>(
+    []
+  );
 
   const gridStyle = useGridScale(containerRef, providers.length);
 
@@ -60,10 +75,15 @@ export default function PerfectProviderHome({
 
     let resolvedCount = 0;
     const totalGroups = groups.length;
+    const eliminatedProviderIds: string[] = [];
 
     const promises = groups.map((group) =>
       filterProviders(criteria, group).then((filteredIds) => {
         if (!isCancelled) {
+          const newlyEliminatedIds = group.filter(
+            (id) => !filteredIds.includes(id)
+          );
+          eliminatedProviderIds.push(...newlyEliminatedIds);
           updateActiveProviders(group, filteredIds);
           resolvedCount++;
           setProgress((resolvedCount / totalGroups) * 100);
@@ -73,15 +93,29 @@ export default function PerfectProviderHome({
 
     try {
       await Promise.all(promises);
+      // Add the criteria to history after all promises have resolved
+      setCriteriaHistory((prev) => [
+        ...prev,
+        { criteria, eliminatedProviderIds },
+      ]);
+      setCriteria("");
     } catch (error) {
       console.error("Error filtering providers:", error);
     }
 
     if (!isCancelled) {
-      setCriteria("");
       setIsLoading(false);
       setProgress(0);
     }
+  };
+
+  const handleUndoCriteria = (index: number) => {
+    const itemToUndo = criteriaHistory[index];
+    setActiveProviderIds((prev) => [
+      ...prev,
+      ...itemToUndo.eliminatedProviderIds,
+    ]);
+    setCriteriaHistory((prev) => prev.filter((_, i) => i !== index));
   };
 
   const handleCancel = () => {
@@ -93,6 +127,7 @@ export default function PerfectProviderHome({
   const handlePlayAgain = () => {
     setPerfectProvider(null);
     setActiveProviderIds(providers.map((p) => p.id));
+    setCriteriaHistory([]);
   };
 
   const activeProviders = providers.filter((p) =>
@@ -102,11 +137,14 @@ export default function PerfectProviderHome({
     (p) => !activeProviderIds.includes(p.id)
   );
 
-  const sortedProviders = [
-    ...inactiveProviders.slice(0, Math.floor(inactiveProviders.length / 2)),
-    ...activeProviders,
-    ...inactiveProviders.slice(Math.floor(inactiveProviders.length / 2)),
-  ];
+  const sortedProviders = useMemo(
+    () => [
+      ...inactiveProviders.slice(0, Math.floor(inactiveProviders.length / 2)),
+      ...activeProviders,
+      ...inactiveProviders.slice(Math.floor(inactiveProviders.length / 2)),
+    ],
+    [activeProviders, inactiveProviders]
+  );
 
   const handleProviderClick = (provider: SelectProvider) => {
     setExpandedProvider(provider);
@@ -243,7 +281,7 @@ export default function PerfectProviderHome({
           Perfect Provider
         </h1>
         <p className="mb-4">Find the right provider for you!</p>
-        <form onSubmit={handleSubmit} className="relative">
+        <form onSubmit={handleSubmit} className="relative mb-4">
           <Input
             placeholder="My Perfect Provider..."
             className="w-full max-w-md"
@@ -252,6 +290,23 @@ export default function PerfectProviderHome({
             disabled={isLoading}
           />
         </form>
+        {/* Add criteria history */}
+        <div className="flex flex-col gap-2 mb-4 absolute top-4 right-4">
+          {criteriaHistory.map((item, index) => (
+            <div
+              key={index}
+              className="flex items-center rounded-full px-3 py-1"
+            >
+              <button
+                onClick={() => handleUndoCriteria(index)}
+                className="mr-2 hover:text-gray-700"
+              >
+                <X size={14} />
+              </button>
+              <span className="text-sm">{item.criteria}</span>
+            </div>
+          ))}
+        </div>
         {isLoading && (
           <motion.div
             className="absolute inset-0 bg-black bg-opacity-80 flex items-center justify-center overflow-hidden"
@@ -304,7 +359,7 @@ export default function PerfectProviderHome({
                   variants={ellipsisVariants}
                   animate="animate"
                 >
-                  Filtering providers
+                  Honing in on your Perfect Provider
                   <motion.span variants={dotVariants}>.</motion.span>
                   <motion.span variants={dotVariants}>.</motion.span>
                   <motion.span variants={dotVariants}>.</motion.span>

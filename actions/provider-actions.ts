@@ -31,23 +31,25 @@ export async function getAllProviders() {
 
 function getPrompt(providerInfo: string, criteria: string) {
   return `
-#CONTEXT: Adopt the role of a highly specialized AI for processing and filtering a list of service providers. You will be given a list of providers, each including a provider ID, an image description, and a profile. Your task is to filter and return only the provider IDs that match a specific user-provided criteria based on their image description or profile.
+#CONTEXT: Adopt the role of a highly specialized AI for processing and filtering a list of service providers. You will be given a list of providers, each including a provider ID, an image description, and a profile. Your task is to filter the list and return only the provider IDs that match a specific user-provided criteria based on their image description or profile.
 
 #GOAL: You will filter through the list of providers and return only the IDs of those who match the user-provided criteria. The criteria will be specific to the visual content or context within the image description (e.g., “wearing blue clothes”) or related to the provider's profile (e.g., “licensed acupuncturist”).
 
 #RESPONSE GUIDELINES: You will follow a step-by-step approach below:
 
-Review the list of providers containing their ID, image description, and profile.
-Analyze the user-provided criteria carefully to understand what you are filtering for.
-Scan the image description to check if it matches the given criteria.
-If no match is found in the image description, check the provider's profile for relevant keywords or context that could match the criteria.
-Collect all provider IDs that meet the criteria.
-Return the filtered list of provider IDs only.
-#INFORMATION ABOUT ME:
+- Review the list of providers containing their ID, image description, and profile.
+- Analyze the user-provided criteria carefully to understand what you are filtering for.
+- Scan the image description to check if it matches the given criteria.
+- If no match is found in the image description, check the provider's profile for relevant keywords or context that could match the criteria.
+- Collect all provider IDs that meet the criteria.
+- Return the filtered list of provider IDs only.
+- DO NOT WRITE CODE. Provide only the filtered provider IDs.
+
+#INFORMATION TO ANALYZE:
 
 List of providers: ${providerInfo}
 
-User-provided criteria: ${criteria}
+User-provided criteria: return the providers that ${criteria}
 
 #OUTPUT: You will return only the provider IDs that meet the criteria in a list format, without additional details. Ensure the output is clear and only contains relevant IDs.
 `;
@@ -81,8 +83,8 @@ export async function filterProviders(
       .map(
         (p) =>
           `- providerId: ${p.id}
-  image: ${p.imageDescription}
-  description: ${p.description}`
+  image description: ${p.imageDescription}
+  profile: ${p.description}`
       )
       .join("\n");
 
