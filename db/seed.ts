@@ -395,6 +395,30 @@ async function seed() {
         description:
           'I am a licensed acupuncturist and herbalist, helping clients achieve balance and wellness through traditional Chinese medicine techniques. My approach is holistic, and I believe that the body has an innate ability to heal itself when given the right tools. In my free time, I love exploring local farmers markets and practicing qigong."}',
       },
+      {
+        name: "Keebler Elf",
+        description:
+          "I specialize in working with adolescents and young adults struggling with identity formation and mental health concerns. My goal is to empower clients to develop a stronger sense of self and cultivate healthy relationships. Using a non-judgmental and solution-focused approach, I help clients identify their strengths and build on them to achieve their goals. When not working, you can find me playing guitar or trying out new recipes in the kitchen.",
+        imageUrl: "/provider-images/keebler.jpg",
+        imageDescription:
+          "The image features a character with a red nose and mustache, wearing a green jacket and a hat. The character is giving a thumbs up gesture while standing next to a bookshelf. There are several books on the shelves, varying in size and position. Additionally, there is a bowl placed near the bottom right corner of the image.",
+      },
+      {
+        name: "Robert Thomas",
+        description:
+          "As a therapist, I work with individuals and couples to address anxiety and relationship issues. Through gentle guidance and empathetic listening, I help clients develop self-awareness and build resilience to navigate life's challenges. My approach is rooted in mindfulness and compassion, allowing clients to feel safe and supported as they explore their thoughts and emotions. In my free time, I enjoy practicing yoga and hiking with my rescue dog.",
+        imageUrl: "/provider-images/maxresdefault.jpg",
+        imageDescription:
+          'The man is wearing a suit with a red nose and holding his fingers up to his face. He has a mustache and appears to be making a funny face for the camera. The image also features a "Red Nose Day" logo, indicating that this photo was taken on Red Nose Day.',
+      },
+      {
+        name: "Ronald McDonald",
+        description:
+          "As a therapist, I work with individuals and groups to address trauma and stress-related issues. My approach is centered around creating a safe and supportive environment where clients feel heard and validated. Through a combination of talk therapy and creative expression, I help clients process their emotions and develop coping strategies to manage anxiety and depression. In my spare time, I enjoy painting and practicing meditation.",
+        imageUrl: "/provider-images/ronald.jpg",
+        imageDescription:
+          "The image features a person dressed as Ronald McDonald, giving a thumbs up sign with their right hand. The costume is yellow and orange, and the character appears to be smiling. In addition to the main subject, there are two other people in the background, one on the left side of the image and another further back on the right side. A flag can also be seen in the scene, located near the bottom right corner.",
+      },
     ]);
 
     console.log("Seed data inserted successfully");
@@ -416,8 +440,10 @@ async function read() {
   }
 }
 
-// seed();
-read();
+(async () => {
+  await seed();
+  return await read();
+})();
 
 // How to run this seed script:
 // 1. Make sure you have ts-node installed globally: npm install -g ts-node

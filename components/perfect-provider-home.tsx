@@ -50,7 +50,9 @@ export default function PerfectProviderHome({
   const updateActiveProviders = useCallback(
     (group: string[], newIds: string[]) => {
       setActiveProviderIds((prev) => {
-        const updated = prev.filter((id) => !group.includes(id)).concat(newIds);
+        const updated = Array.from(
+          new Set(prev.filter((id) => !group.includes(id)).concat(newIds))
+        );
         if (updated.length === 1) {
           const provider = providers.find((p) => p.id === updated[0]);
           setPerfectProvider(provider || null);
@@ -71,6 +73,12 @@ export default function PerfectProviderHome({
 
     for (let i = 0; i < activeProviderIds.length; i += groupSize) {
       groups.push(activeProviderIds.slice(i, i + groupSize));
+    }
+    // Ensure the last group has at least groupSize items
+    if (groups.length > 1 && groups[groups.length - 1].length < groupSize) {
+      const lastGroup = groups.pop()!;
+      const secondLastGroup = groups.pop()!;
+      groups.push([...secondLastGroup, ...lastGroup]);
     }
 
     let resolvedCount = 0;
@@ -95,8 +103,8 @@ export default function PerfectProviderHome({
       await Promise.all(promises);
       // Add the criteria to history after all promises have resolved
       setCriteriaHistory((prev) => [
-        ...prev,
         { criteria, eliminatedProviderIds },
+        ...prev,
       ]);
       setCriteria("");
     } catch (error) {

@@ -94,33 +94,21 @@ const providerImagesDir = path.join(process.cwd(), "public", "provider-images");
 const jpgFiles = fs
   .readdirSync(providerImagesDir)
   .filter((file) => file.toLowerCase().endsWith(".jpg"))
+  .filter((file) => !file.toLowerCase().startsWith("image-"))
   .map((file) => path.join(providerImagesDir, file));
 
 (async () => {
   const providerImages = jpgFiles;
 
-  // const descriptions = await createProviderDescriptions(providerImages.length);
+  // const descriptions = await createProviderDescriptions(3);
+  // console.log({ descriptions });
 
-  // const providers = JSON.parse(
-  //   descriptions
-  //     .replace("\n", "")
-  //     .replace(/[^\[]*/m, "[")
-  //     .replace(/[^\]]*$/m, "]")
-  // );
+  // return;
 
   let i = 0;
   for (const path of providerImages) {
     const imageDescription = await describeImage(path);
 
     console.log({ path, imageDescription });
-
-    // await createProvider({
-    //   name: providers[i].name,
-    //   description: providers[i].description,
-    //   imageUrl: path,
-    //   imageDescription,
-    // });
-
-    // console.log(`Created: ${providers[i].name}`);
   }
 })();

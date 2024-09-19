@@ -44,6 +44,7 @@ function getPrompt(providerInfo: string, criteria: string) {
 - Collect all provider IDs that meet the criteria.
 - Return the filtered list of provider IDs only.
 - DO NOT WRITE CODE. Provide only the filtered provider IDs.
+- If the request provides only two providers, return the one that best matches the criteria.
 
 #INFORMATION TO ANALYZE:
 
@@ -76,7 +77,7 @@ export async function filterProviders(
 ): Promise<SelectProvider["id"][]> {
   try {
     // Fetch provider information for the given ids
-    const providers = await getProvidersById(providerIds);
+    const providers = await getProvidersById(Array.from(new Set(providerIds)));
 
     // Compose the prompt
     const providerInfo = providers
