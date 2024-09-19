@@ -7,8 +7,9 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "db:generate": "npx drizzle-kit generate",
-    "db:migrate": "npx drizzle-kit migrate"
+    "db:yolo": "drizzle-kit generate && drizzle-kit migrate",
+    "db:generate": "drizzle-kit generate",
+    "db:migrate": "drizzle-kit migrate"
   },
   "dependencies": {
     "@clerk/backend": "^1.9.0",
@@ -52,7 +53,7 @@
     "framer-motion": "^11.3.30",
     "input-otp": "^1.2.4",
     "lucide-react": "^0.436.0",
-    "next": "14.2.7",
+    "next": "14.2.12",
     "next-themes": "^0.3.0",
     "postgres": "^3.4.4",
     "react": "^18",
@@ -74,6 +75,7 @@
     "drizzle-kit": "^0.24.2",
     "eslint": "^8",
     "eslint-config-next": "14.2.7",
+    "openai": "^4.62.1",
     "postcss": "^8",
     "shadcn-ui": "^0.9.1",
     "tailwindcss": "^3.4.1",
