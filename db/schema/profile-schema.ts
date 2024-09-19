@@ -12,5 +12,8 @@ export const profiles = pgTable("profiles", {
     .$onUpdate(() => new Date()),
 });
 
-export type InsertProfile = typeof profiles.$inferInsert;
 export type SelectProfile = typeof profiles.$inferSelect;
+export type InsertProfile = Omit<
+  typeof profiles.$inferInsert,
+  "id" | "createdAt" | "updatedAt"
+>;

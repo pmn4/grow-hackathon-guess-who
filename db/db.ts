@@ -1,15 +1,19 @@
-import { config } from "dotenv";
 import { drizzle } from "drizzle-orm/postgres-js";
 import postgres from "postgres";
-import { profiles, todos } from "./schema";
-
-config({ path: ".env.local" });
+import { profiles, providers, todos } from "./schema";
 
 const schema = {
   profiles,
-  todos
+  providers,
+  todos,
 };
 
-const client = postgres(process.env.DATABASE_URL!);
+const client = postgres({
+  host: "localhost",
+  port: 5432, // This should be a number
+  user: "guess_who_user",
+  password: "your_secure_password",
+  database: "guess_who_db",
+});
 
 export const db = drizzle(client, { schema });

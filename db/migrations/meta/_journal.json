@@ -15,6 +15,13 @@
       "when": 1726715797102,
       "tag": "0001_brainy_hex",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1726716403756,
+      "tag": "0002_bizarre_susan_delgado",
+      "breakpoints": true
     }
   ]
 }

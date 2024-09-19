@@ -4,6 +4,7 @@ dns.setDefaultResultOrder("ipv4first");
 
 import { OpenAI } from "openai";
 import fs from "fs";
+import { createProvider } from "@/db/queries/provider-queries";
 
 // Initialize OpenAI client with a custom local server and a placeholder API key
 const openai = new OpenAI({
@@ -63,29 +64,18 @@ async function createProviderDescriptions(count: number) {
           {
             type: "text",
             text: `
-You're a tester who needs random data to seed a database.
-- You need a valid JSON payload of data.
-- the response should be an array of objects with ${count} items.
-
 COMMANDS:
+    - Create a valid JSON array with exactly ${count} objects.
     - Don't comment anything, not even inline comments in json.
+    - Do not repeat data. e.g., both first and last names should be unique.
     - Fill in the expected output below where fields have the following meanings:
-    name: Name of the Therapist
-    description: Description to be used on a website, that roughly follows these guidelines, but should be a few sentences long:
-        Follow these guidelines:
-        Write in the first-person point of view
-        Consider using first-person language to appeal to your website visitors on a more personal level. Third-person can read awkward and overly academic, especially for people who may be in a vulnerable position trying to ask for help.
+    name: Name (use realistic-sounding names, as opposed to generic last names like "Doe", "Lee", or "Kim")
+    description: Self-description for a Therapist that roughly follows these guidelines:
 
-        The first sentence should focus on your role, your niche audience, and high-level goals clients can expect to work on.
+        The first sentence should focus on your role as a therapist, your niche audience, and high-level goals clients can expect to work on. The second and third sentences should talk about your tactile and philosophical approach to reaching those goals. Finally, include a sentence about your personal life, hobbies, or interests to humanize yourself and make you more relatable to potential clients.
 
-        Your second and third sentences should talk about your tactile and philosophical approach to reaching those goals.
-
-        Any work you do outside of the clinical—like speaking engagements or workshops—should be included in a separate paragraph to reinforce a clear distinction from in-session work.
-
-        Keep it concise
-        All of this said, you should keep your website therapist bio to be no longer than three sentences. Run-on sentences don’t count—that’ll help keep your bio short and snappy.
     - Answer in the following JSON schema
-EXPECTED OUTPUT FORMAT (FILL IN THE ""):
+EXPECTED OUTPUT FORMAT (FILL IN THE ""): (do not wrap the response in quotes or backticks or markdown)
     - [{"name": "", "description": ""}, ...]
 
             `,
@@ -93,7 +83,7 @@ EXPECTED OUTPUT FORMAT (FILL IN THE ""):
         ],
       },
     ],
-    max_tokens: 1000,
+    max_tokens: 7500,
   });
 
   return dataCompletion.choices[0].message.content?.trim() ?? "";
@@ -108,16 +98,30 @@ const jpgFiles = fs
   .map((file) => path.join(providerImagesDir, file));
 
 (async () => {
-  const providerImages = jpgFiles.splice(0, 2);
+  const providerImages = jpgFiles;
+
+  // const descriptions = await createProviderDescriptions(providerImages.length);
+
+  // const providers = JSON.parse(
+  //   descriptions
+  //     .replace("\n", "")
+  //     .replace(/[^\[]*/m, "[")
+  //     .replace(/[^\]]*$/m, "]")
+  // );
+
+  let i = 0;
   for (const path of providerImages) {
     const imageDescription = await describeImage(path);
 
-    console.log(
-      `\n\n-----\n\nImage: ${path}\nImage Description: ${imageDescription}`
-    );
+    console.log({ path, imageDescription });
+
+    // await createProvider({
+    //   name: providers[i].name,
+    //   description: providers[i].description,
+    //   imageUrl: path,
+    //   imageDescription,
+    // });
+
+    // console.log(`Created: ${providers[i].name}`);
   }
-
-  const descriptions = await createProviderDescriptions(providerImages.length);
-
-  console.log("\n\n-----\n\nProvider Descriptions:\n", descriptions);
 })();
