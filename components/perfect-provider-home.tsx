@@ -1,7 +1,8 @@
 "use client";
 
-import React, { useRef, useState } from "react";
+import React, { useCallback, useRef, useState, useEffect } from "react";
 import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button";
 import { SelectProvider } from "@/db/schema";
 import { ProviderCard } from "./ProviderCard";
 import { filterProviders } from "@/actions/provider-actions";
@@ -23,20 +24,70 @@ export default function PerfectProviderHome({
   const [perfectProvider, setPerfectProvider] = useState<SelectProvider | null>(
     null
   );
+  const [isLoading, setIsLoading] = useState(false);
+  const [progress, setProgress] = useState(0);
+  const [expandedProvider, setExpandedProvider] =
+    useState<SelectProvider | null>(null);
+  const [isCancelled, setIsCancelled] = useState(false);
 
   const gridStyle = useGridScale(containerRef, providers.length);
 
+  const updateActiveProviders = useCallback(
+    (group: string[], newIds: string[]) => {
+      setActiveProviderIds((prev) => {
+        const updated = prev.filter((id) => !group.includes(id)).concat(newIds);
+        if (updated.length === 1) {
+          const provider = providers.find((p) => p.id === updated[0]);
+          setPerfectProvider(provider || null);
+        }
+        return updated;
+      });
+    },
+    [providers]
+  );
+
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const filteredIds = await filterProviders(criteria, activeProviderIds);
-    setActiveProviderIds(filteredIds);
-    setCriteria("");
-    if (filteredIds.length === 1) {
-      const provider = providers.find((p) => p.id === filteredIds[0]);
-      setPerfectProvider(provider || null);
-    } else {
-      setPerfectProvider(null);
+    setIsLoading(true);
+    setProgress(0);
+    setIsCancelled(false);
+    const groupSize = 5;
+    const groups: string[][] = [];
+
+    for (let i = 0; i < activeProviderIds.length; i += groupSize) {
+      groups.push(activeProviderIds.slice(i, i + groupSize));
     }
+
+    let resolvedCount = 0;
+    const totalGroups = groups.length;
+
+    const promises = groups.map((group) =>
+      filterProviders(criteria, group).then((filteredIds) => {
+        if (!isCancelled) {
+          updateActiveProviders(group, filteredIds);
+          resolvedCount++;
+          setProgress((resolvedCount / totalGroups) * 100);
+        }
+      })
+    );
+
+    try {
+      await Promise.all(promises);
+    } catch (error) {
+      console.error("Error filtering providers:", error);
+    }
+
+    if (!isCancelled) {
+      setCriteria("");
+      setIsLoading(false);
+      setProgress(0);
+    }
+  };
+
+  const handleCancel = () => {
+    setIsCancelled(true);
+    setIsLoading(false);
+    setProgress(0);
   };
 
   const handlePlayAgain = () => {
@@ -57,6 +108,46 @@ export default function PerfectProviderHome({
     ...inactiveProviders.slice(Math.floor(inactiveProviders.length / 2)),
   ];
 
+  const handleProviderClick = (provider: SelectProvider) => {
+    setExpandedProvider(provider);
+  };
+
+  const handleCloseExpanded = () => {
+    setExpandedProvider(null);
+  };
+
+  const handleKeyDown = useCallback(
+    (e: KeyboardEvent) => {
+      if (!expandedProvider) return;
+
+      if (e.key === "Escape") {
+        setExpandedProvider(null);
+      } else if (e.key === "ArrowLeft") {
+        const currentIndex = sortedProviders.findIndex(
+          (p) => p.id === expandedProvider.id
+        );
+        if (currentIndex > 0) {
+          setExpandedProvider(sortedProviders[currentIndex - 1]);
+        }
+      } else if (e.key === "ArrowRight") {
+        const currentIndex = sortedProviders.findIndex(
+          (p) => p.id === expandedProvider.id
+        );
+        if (currentIndex < sortedProviders.length - 1) {
+          setExpandedProvider(sortedProviders[currentIndex + 1]);
+        }
+      }
+    },
+    [expandedProvider, sortedProviders]
+  );
+
+  useEffect(() => {
+    window.addEventListener("keydown", handleKeyDown);
+    return () => {
+      window.removeEventListener("keydown", handleKeyDown);
+    };
+  }, [handleKeyDown]);
+
   const activeCount = activeProviderIds.length;
   const totalProviders = providers.length;
   const inactiveScale =
@@ -65,6 +156,25 @@ export default function PerfectProviderHome({
     1 + (0.1 * (totalProviders - activeCount)) / totalProviders;
 
   const { width, height } = useWindowSize();
+
+  const ellipsisVariants = {
+    animate: {
+      transition: {
+        staggerChildren: 0.3,
+      },
+    },
+  };
+
+  const dotVariants = {
+    initial: { opacity: 0 },
+    animate: {
+      opacity: [0, 1, 0],
+      transition: {
+        repeat: Infinity,
+        duration: 1,
+      },
+    },
+  };
 
   return (
     <div className="flex flex-col h-screen">
@@ -106,19 +216,109 @@ export default function PerfectProviderHome({
           </div>
         </>
       )}
-      <div className="flex-none p-4 sm:p-6">
+      {expandedProvider && (
+        <div className="absolute inset-0 bg-black bg-opacity-50 backdrop-blur-sm flex items-center justify-center z-10">
+          <motion.div
+            className="p-4 rounded-lg shadow-lg w-full max-w-md bg-white"
+            initial={{ opacity: 0, scale: 0.8 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ type: "spring", damping: 15, stiffness: 100 }}
+          >
+            <button
+              onClick={handleCloseExpanded}
+              className="absolute top-2 right-2 text-gray-500 hover:text-gray-700"
+            >
+              Close
+            </button>
+            <ProviderCard
+              provider={expandedProvider}
+              isActive={true}
+              showDetails={false}
+            />
+          </motion.div>
+        </div>
+      )}
+      <div className="flex-none p-4 sm:p-6 relative">
         <h1 className="text-2xl sm:text-3xl font-bold mb-2">
           Perfect Provider
         </h1>
         <p className="mb-4">Find the right provider for you!</p>
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={handleSubmit} className="relative">
           <Input
-            placeholder="Enter your criteria..."
+            placeholder="My Perfect Provider..."
             className="w-full max-w-md"
             value={criteria}
             onChange={(e) => setCriteria(e.target.value)}
+            disabled={isLoading}
           />
         </form>
+        {isLoading && (
+          <motion.div
+            className="absolute inset-0 bg-black bg-opacity-80 flex items-center justify-center overflow-hidden"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+          >
+            {/* Subtle background animation */}
+            <motion.div
+              className="absolute inset-0 opacity-20"
+              animate={{
+                backgroundImage: [
+                  "radial-gradient(circle at 20% 20%, rgba(62, 62, 62, 0.4) 0%, rgba(0, 0, 0, 0) 50%)",
+                  "radial-gradient(circle at 80% 80%, rgba(62, 62, 62, 0.4) 0%, rgba(0, 0, 0, 0) 50%)",
+                  "radial-gradient(circle at 20% 80%, rgba(62, 62, 62, 0.4) 0%, rgba(0, 0, 0, 0) 50%)",
+                  "radial-gradient(circle at 80% 20%, rgba(62, 62, 62, 0.4) 0%, rgba(0, 0, 0, 0) 50%)",
+                  "radial-gradient(circle at 20% 20%, rgba(62, 62, 62, 0.4) 0%, rgba(0, 0, 0, 0) 50%)",
+                ],
+              }}
+              transition={{ repeat: Infinity, duration: 10, ease: "linear" }}
+            />
+            <div className="text-center z-10">
+              <div className="relative w-20 h-20 mx-auto mb-4">
+                <svg className="w-full h-full" viewBox="0 0 100 100">
+                  <motion.circle
+                    className="text-blue-500"
+                    strokeWidth="8"
+                    stroke="currentColor"
+                    fill="transparent"
+                    r="46"
+                    cx="50"
+                    cy="50"
+                    initial={{ pathLength: 0 }}
+                    animate={{ pathLength: Math.max(1, progress) / 100 }}
+                    transition={{ duration: 0.5, ease: "easeInOut" }}
+                  />
+                </svg>
+                <motion.div
+                  className="absolute inset-0 flex items-center justify-center text-lg font-bold text-blue-500"
+                  initial={{ scale: 0.8, opacity: 0 }}
+                  animate={{ scale: 1, opacity: 1 }}
+                  transition={{ delay: 0.2 }}
+                >
+                  {Math.round(progress)}%
+                </motion.div>
+              </div>
+              <div className="flex items-center justify-center space-x-2">
+                <motion.p
+                  className="text-lg font-semibold text-gray-300"
+                  variants={ellipsisVariants}
+                  animate="animate"
+                >
+                  Filtering providers
+                  <motion.span variants={dotVariants}>.</motion.span>
+                  <motion.span variants={dotVariants}>.</motion.span>
+                  <motion.span variants={dotVariants}>.</motion.span>
+                </motion.p>
+                <button
+                  onClick={handleCancel}
+                  className="text-gray-400 hover:text-gray-200 transition-colors duration-200 text-sm focus:outline-none"
+                >
+                  Cancel
+                </button>
+              </div>
+            </div>
+          </motion.div>
+        )}
       </div>
       <div className="flex-grow overflow-auto relative">
         <motion.div
@@ -143,6 +343,7 @@ export default function PerfectProviderHome({
                     : inactiveScale,
                 }}
                 transition={{ type: "spring", damping: 15, stiffness: 100 }}
+                onClick={() => handleProviderClick(provider)}
               >
                 <ProviderCard provider={provider} isActive={true} />
               </motion.div>

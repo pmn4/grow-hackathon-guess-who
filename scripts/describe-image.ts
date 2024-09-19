@@ -4,7 +4,6 @@ dns.setDefaultResultOrder("ipv4first");
 
 import { OpenAI } from "openai";
 import fs from "fs";
-import { createProvider } from "@/db/queries/provider-queries";
 
 // Initialize OpenAI client with a custom local server and a placeholder API key
 const openai = new OpenAI({

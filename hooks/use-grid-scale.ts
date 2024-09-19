@@ -62,7 +62,5 @@ export function useGridScale(
     return () => window.removeEventListener("resize", calculateGrid);
   }, [containerRef, itemCount]);
 
-  console.log({ gridStyle });
-
   return gridStyle;
 }

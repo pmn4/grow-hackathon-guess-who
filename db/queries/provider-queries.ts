@@ -1,4 +1,4 @@
-import { eq } from "drizzle-orm";
+import { eq, inArray } from "drizzle-orm";
 import { db } from "@/db/db";
 import { InsertProvider, providers } from "@/db/schema";
 
@@ -22,3 +22,7 @@ export const updateProvider = (id: string, provider: Partial<InsertProvider>) =>
 
 export const deleteProvider = (id: string) =>
   db.delete(providers).where(eq(providers.id, id));
+
+export async function getProvidersById(ids: string[]) {
+  return db.select().from(providers).where(inArray(providers.id, ids));
+}
