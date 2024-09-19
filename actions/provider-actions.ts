@@ -1,3 +1,5 @@
+"use server";
+
 import { revalidatePath } from "next/cache";
 import {
   getProviderById,
@@ -6,7 +8,7 @@ import {
   updateProvider as queryUpdateProvider,
   deleteProvider as queryDeleteProvider,
 } from "@/db/queries/provider-queries";
-import { InsertProvider } from "@/db/schema";
+import { InsertProvider, SelectProvider } from "@/db/schema";
 
 export async function getProvider(id: string) {
   return getProviderById(id);
@@ -14,6 +16,15 @@ export async function getProvider(id: string) {
 
 export async function getAllProviders() {
   return listProviders();
+}
+
+export async function filterProviders(
+  criteria: string,
+  providerIds: SelectProvider["id"][]
+): Promise<SelectProvider["id"][]> {
+  // For now, we'll just return a randomized subset of the providerIds
+  const shuffled = providerIds.sort(() => 0.5 - Math.random());
+  return shuffled.slice(0, Math.floor(shuffled.length / 2));
 }
 
 export async function createProvider(provider: InsertProvider) {

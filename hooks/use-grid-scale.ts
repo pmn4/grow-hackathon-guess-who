@@ -1,43 +1,68 @@
 import { useState, useEffect } from "react";
 
 export function useGridScale(
-  totalItems: number,
-  containerRef: React.RefObject<HTMLDivElement>
+  containerRef: React.RefObject<HTMLDivElement>,
+  itemCount: number
 ) {
-  const [gridDimensions, setGridDimensions] = useState({
-    columns: 1,
-    rows: 1,
-    itemSize: 200,
-  });
+  const [gridStyle, setGridStyle] = useState({});
 
   useEffect(() => {
-    function updateGrid() {
-      if (containerRef.current) {
-        const containerWidth = containerRef.current.clientWidth;
-        const containerHeight = containerRef.current.clientHeight;
-        const aspectRatio = containerWidth / containerHeight;
+    const calculateGrid = () => {
+      if (!containerRef.current) return;
 
-        let columns = Math.round(Math.sqrt(totalItems * aspectRatio));
-        let rows = Math.ceil(totalItems / columns);
+      const container = containerRef.current;
+      const containerWidth = container.clientWidth;
+      const containerHeight = container.clientHeight;
 
-        // Adjust if we have too many rows
-        if (rows > columns / aspectRatio) {
-          rows = Math.round(Math.sqrt(totalItems / aspectRatio));
-          columns = Math.ceil(totalItems / rows);
-        }
+      const aspectRatio = 4.5 / 3; // Aspect ratio of the card (height / width)
 
-        const itemWidth = containerWidth / columns;
-        const itemHeight = containerHeight / rows;
-        const itemSize = Math.min(itemWidth, itemHeight);
+      // Calculate the ideal number of columns and rows
+      const idealCols = Math.sqrt(
+        (itemCount * aspectRatio * containerWidth) / containerHeight
+      );
+      let cols = Math.round(idealCols);
+      let rows = Math.ceil(itemCount / cols);
 
-        setGridDimensions({ columns, rows, itemSize });
-      }
-    }
+      // Adjust columns to fit within min and max card width
+      // cols = Math.min(
+      //   Math.max(cols, Math.floor(containerWidth / maxCardWidth)),
+      //   Math.floor(containerWidth / minCardWidth)
+      // );
+      rows = Math.ceil(itemCount / cols);
 
-    updateGrid();
-    window.addEventListener("resize", updateGrid);
-    return () => window.removeEventListener("resize", updateGrid);
-  }, [totalItems, containerRef]);
+      // const cardWidth = containerWidth / cols - 16; // 16px for gap
+      // const cardHeight = cardWidth * aspectRatio;
 
-  return gridDimensions;
+      // console.log({
+      //   cardWidth,
+      //   cardHeight,
+      //   containerHeight,
+      //   totalCardHeight: cardHeight * rows,
+      // });
+
+      // If cards are too tall, adjust rows and recalculate columns
+      // if (cardHeight * rows > containerHeight) {
+      //   rows = Math.floor(containerHeight / (cardHeight + 16)); // 16px for gap
+      //   cols = Math.ceil(itemCount / rows);
+      // }
+
+      setGridStyle({
+        display: "grid",
+        gridTemplateColumns: `repeat(${cols}, 1fr)`,
+        gap: "8px",
+        justifyContent: "center",
+        alignContent: "center",
+        padding: "8px",
+        height: "100%",
+      });
+    };
+
+    calculateGrid();
+    window.addEventListener("resize", calculateGrid);
+    return () => window.removeEventListener("resize", calculateGrid);
+  }, [containerRef, itemCount]);
+
+  console.log({ gridStyle });
+
+  return gridStyle;
 }
