@@ -288,7 +288,6 @@ export default function PerfectProviderHome({
         <h1 className="text-2xl sm:text-3xl font-bold mb-2">
           Perfect Provider
         </h1>
-        <p className="mb-4">Find the right provider for you!</p>
         <form onSubmit={handleSubmit} className="relative mb-4">
           <Input
             placeholder="My Perfect Provider..."

@@ -23,28 +23,7 @@ export function useGridScale(
       let cols = Math.round(idealCols);
       let rows = Math.ceil(itemCount / cols);
 
-      // Adjust columns to fit within min and max card width
-      // cols = Math.min(
-      //   Math.max(cols, Math.floor(containerWidth / maxCardWidth)),
-      //   Math.floor(containerWidth / minCardWidth)
-      // );
       rows = Math.ceil(itemCount / cols);
-
-      // const cardWidth = containerWidth / cols - 16; // 16px for gap
-      // const cardHeight = cardWidth * aspectRatio;
-
-      // console.log({
-      //   cardWidth,
-      //   cardHeight,
-      //   containerHeight,
-      //   totalCardHeight: cardHeight * rows,
-      // });
-
-      // If cards are too tall, adjust rows and recalculate columns
-      // if (cardHeight * rows > containerHeight) {
-      //   rows = Math.floor(containerHeight / (cardHeight + 16)); // 16px for gap
-      //   cols = Math.ceil(itemCount / rows);
-      // }
 
       setGridStyle({
         display: "grid",
